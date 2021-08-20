@@ -24,20 +24,19 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>План здания</title>
+    <script src="https://code.archilogic.com/fpe-sdk/v3.0.x/fpe.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <!-- <script type="module">
+      // Create publishable access token at https://developers.archilogic.com/access-tokens.html
+      const publishableToken = '680e296a-254f-49b3-ba71-f56d7e20677c'
+      const demoSceneId = '360e6e00-d9f0-451f-83c1-de0594a4f599'
+      const container = document.getElementById('root')
+      const floorPlan = new FloorPlanEngine(container)
+      floorPlan.loadScene(demoSceneId, {publishableToken})
+    </script> -->
   </body>
 </html>
