@@ -1,127 +1,46 @@
-# Archilogic Room Booking App Example
+# Getting Started with Create React App
 
-This is a simple prototype of a room booking app for managing room booking in a given space.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Check out a [Demo](https://archilogic-room-booking.herokuapp.com)
-
-## Setup local server 
-
-Navigate to the server folder and run:
-
-    yarn install
-
-The server needs a secret token to negotiate a temporary token.
-
-https://developers.archilogic.com/space-api/v2/introduction.html#secret-access-token
-
-Create a new secret token and add it to the ARCHILOGIC_SECRET_KEY environment variable.
-
-then run:
-
-    node server.js
-
-## Install and Run 
+## Available Scripts
 
 In the project directory, you can run:
 
-	npm install
+### `yarn start`
 
-This command will install all the dependencies needed for the project to run locally.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-To run the app we'll need to set some environment variables first.  
-You'll need an API key [https://developers.archilogic.com/api-keys.html](https://developers.archilogic.com/api-keys.html).  
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-![](token.png)
+### `yarn test`
 
-Once you have these keys, please create a .env file  (you can copy it from .env.example) and fill in the values for 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-	cp .env.example .env
-	 	
-Update .env variables:
+### `yarn build`
 
-	REACT_APP_PUBLISHABLE_TOKEN=YOUR_TOKEN
-	REACT_APP_ARCHILOGIC_API_URL=https://api.archilogic.com
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-To run the application execute:
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-	npm start
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-The project loads a default scene but you can change it by a different one by specifing `?sceneId=THIS_IS_ANOTHER_SCENE_ID` in the browser url.  
+### `yarn eject`
 
-```html
-http://localhost:3001/?sceneId=0246512e-973c-4e52-a1f2-5f0008e9ee9c
-```
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-## The App
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-![](demo.gif)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).  
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Archilogic library setup
-
-Index file `public\index.html`:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Book rooms using Archilogic Floor Plan Engine" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-
-    <script src="https://code.archilogic.com/fpe-preview/v2.0.x/fpe.js?key=%REACT_APP_ARCHILOGIC_PUBLISHABLE_API_KEY%"></script>
-
-```
-
-
-
-### Floorplan Initialization
-
-In file `src\components\Floorplan\FloorPlan.tsx` when the sceneId value is available trough props, we initialize the floor-plan and attach it to the DOM element `#floorplan`
-
-```javascript
-useEffect(() => {
-    const container = document.getElementById('floorplan')
-    const fp = new FloorPlanEngine(container, floorPlanStartupSettings)
-    fp.loadScene(props.sceneId).then(() => {
-        props.setSpaces(fp.state.computed.spaces)
-        onSpacesLoaded(fp.state.computed.spaces)
-    })
-}, [props.sceneId]);
-```
-
-### API storage
-
-All the bookings are managed in a collection on the client side, and when there is any change to that collection, we push the new updated data to the corresponding space.
-
-In order to keep business logic clean we decoupled it into a reducer: `src\reducers\bookings.ts`
-
-```javascript
-export const saveBooking = (newBooking: Booking, bookings: Booking[]) => (dispatch: any) => {
-    dispatch(startSaveBooking());
-    let newBookingsList = bookings;
-    newBookingsList.push(newBooking);
-
-    axios.put(`/v2/space/${newBooking.spaceId}/custom-field/properties.customFields.bookings`, { bookings: newBookingsList }).then((response: any) => {
-        dispatch(endSaveBooking(newBookingsList));
-    });
-}
-```
-
-### Other Libraries Used In This Project
-
-[Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js.  
-[Ant Design](https://ant.design/) - A UI Design language and React UI library.  
-[Typescript](https://www.typescriptlang.org/) - Optional static type-checking along with the latest ECMAScript features.  
-[lodash](https://lodash.com/) - A JavaScript utility library delivering consistency, modularity, performance, & extras.  
-[Redux](https://redux.js.org/) - A Predictable State Container for JS Apps.
-[Moment.js](https://momentjs.com/) - Parse, validate, manipulate, and display dates and times in JavaScript.  
-[uuidjs](https://github.com/uuidjs/uuid#readme) - 
-Generate RFC-compliant UUIDs in JavaScript.  
