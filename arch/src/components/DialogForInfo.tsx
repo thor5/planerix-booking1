@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import * as React from 'react'
+import { useState, ReactElement, JSXElementConstructor, cloneElement } from 'react'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -7,8 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 type Props = {
-  children: React.ReactElement
-  content?: React.ReactNode
+  children: ReactElement
+  content: ReactElement<any, string | JSXElementConstructor<any>>
   title?: string
 }
 
@@ -28,7 +27,7 @@ export default function DialogForInfo(props: Props) {
 
   const [open, setOpen] = useState(false)
 
-  const clone = React.cloneElement(children, {
+  const clone = cloneElement(children, {
     onClick: async () => {
       if (children.props.onClick) {
         await children.props.onClick()
@@ -37,12 +36,16 @@ export default function DialogForInfo(props: Props) {
     },
   })
 
+  const cloneContent = cloneElement(content, {
+    onClose: () => setOpen(false),
+  })
+
   return (
     <>
       {clone}
       <Dialog fullWidth open={open} onClose={() => setOpen(false)}>
         {title && <DialogTitle>{title}</DialogTitle>}
-        {content && <DialogContent>{content}</DialogContent>}
+        {content && <DialogContent>{cloneContent}</DialogContent>}
         <DialogActions>
           <Button
             onClick={() => {
@@ -51,7 +54,7 @@ export default function DialogForInfo(props: Props) {
             size="small"
             variant="contained"
             autoFocus
-            color="secondary"
+            color="inherit"
           >
             закрыть
           </Button>

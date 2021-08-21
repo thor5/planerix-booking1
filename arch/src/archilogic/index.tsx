@@ -129,20 +129,25 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
       <Grid item>
         <Typography variant="subtitle1">Просмотр помещений</Typography>
       </Grid>
-      <DialogForInfo content={<FormBooking />}>
+      <DialogForInfo
+        title="Подача заявки на аренду помещения"
+        content={<FormBooking />}
+      >
         <Box width="100%" height="80vh" id="floorplan"></Box>
       </DialogForInfo>
       <Grid item>
-        <Button
-          onClick={() => {
-            refFp.current?.exportImage({
-              download: true,
-              format: 'jpg',
-            })
-          }}
-        >
-          Скачать план
-        </Button>
+        <Box>
+          <Button
+            onClick={() => {
+              refFp.current?.exportImage({
+                download: true,
+                format: 'glb',
+              })
+            }}
+          >
+            Скачать план
+          </Button>
+        </Box>
       </Grid>
     </Grid>
   )
