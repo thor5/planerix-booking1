@@ -1,17 +1,17 @@
-const russianMessages = {};
+import russianMessages from 'ra-language-russian';
 
 export default {
     simple: {
         action: {
-            close: 'Fermer',
-            resetViews: 'Réinitialiser des vues',
+            close: 'Закрыть',
+            resetViews: 'Сбросить фильтры',
         },
-        'create-post': 'Nouveau post',
+        'create-post': 'Создать пост',
     },
     ...russianMessages,
     resources: {
         posts: {
-            name: 'Article |||| Articles',
+            name: 'Новость |||| Новости',
             fields: {
                 average_note: 'Note moyenne',
                 body: 'Contenu',
@@ -32,50 +32,53 @@ export default {
             },
         },
         comments: {
-            name: 'Commentaire |||| Commentaires',
+            name: 'Заявка |||| Заявки',
             fields: {
-                body: 'Contenu',
-                created_at: 'Créé le',
-                post_id: 'Article',
+                body: 'Заявка',
+                created_at: 'Время создания',
+                post_id: 'Содержимое заявки',
                 author: {
-                    name: 'Auteur',
+                    name: 'Автор заявки',
                 },
             },
         },
         users: {
-            name: 'User |||| Users',
+            name: 'Арендатор |||| Арендаторы',
             fields: {
-                name: 'Name',
-                role: 'Role',
+                name: 'Имя',
+                role: 'Права',
             },
         },
+        tags: {
+            name: 'Категория |||| Категории',
+        }
     },
     post: {
         list: {
-            search: 'Recherche',
+            search: 'Заявки',
         },
         form: {
-            summary: 'Résumé',
-            body: 'Contenu',
-            miscellaneous: 'Extra',
-            comments: 'Commentaires',
+            summary: 'Поиск',
+            body: 'Содержимое заявки',
+            miscellaneous: 'Дополнительно',
+            comments: 'Комментарии',
         },
         edit: {
-            title: 'Article "%{title}"',
+            title: 'Статья "%{title}"',
         },
     },
     comment: {
         list: {
-            about: 'Au sujet de',
+            about: 'Подробнее',
         },
     },
     user: {
         list: {
-            search: 'Recherche',
+            search: 'Поиск',
         },
         form: {
-            summary: 'Résumé',
-            security: 'Sécurité',
+            summary: 'Резюме',
+            security: 'Рекомендации',
         },
         edit: {
             title: 'Utilisateur "%{title}"',
