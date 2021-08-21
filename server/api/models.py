@@ -39,5 +39,7 @@ class Space(TimeStampedModel):
     rent = models.IntegerField('Признак срока сдачи', default=None, null=True, blank=True)
     perHour = models.FloatField('Плата за час', default=0, null=True, blank=True)
     fullName = models.CharField('Имя арендатора', default=None, null=True, blank=True, max_length=255)
-    email = models.EmailField('Почта арендатора', default=None, null=True, blank=True,)
+    email = models.EmailField('Почта арендатора', default=None, null=True, blank=True)
     booked = models.BooleanField('Забронирован', default=False, null=True, blank=True)
+    startRent = models.DateTimeField('Начало аренды', default=None, null=True, blank=True)
+    endRent = models.DateTimeField('Завершение аренды', default=None, null=True, blank=True)
