@@ -10,7 +10,13 @@ export const store = configureStore({
     bookings: bookingReducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(floorApi.middleware),
+    getDefaultMiddleware({
+
+      serializableCheck: {
+        ignoredPaths: ['booking.spaces.0.node'],
+        ignoredActionPaths: ['payload.0.node'],
+      }
+    }).concat(floorApi.middleware),
 })
 
 setupListeners(store.dispatch)

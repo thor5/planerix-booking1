@@ -7,7 +7,7 @@ const initialState: BookingsState = {
     spaces: [],
     bookings: [],
     selectedSpace: null,
-    usedSpaces: []
+    // usedSpaces: []
 
     // selectedDate: DateTime.now(),
     // selectedTimeSlot: 3,
@@ -28,13 +28,13 @@ const bookingsSlice = createSlice({
         selectSpace: (state, action) => {
             state.selectedSpace = action.payload
         },
-        setUsedSpaces: (state, action) => {
-            state.usedSpaces = action.payload
-        }
+        // setUsedSpaces: (state, action) => {
+        //     state.usedSpaces = action.payload
+        // }
     }
 })
 
-export const { setSpaces, initBookings, selectSpace, setUsedSpaces } = bookingsSlice.actions
+export const { setSpaces, initBookings, selectSpace } = bookingsSlice.actions
 
 export default bookingsSlice.reducer
 // import { DateTime } from 'luxon'

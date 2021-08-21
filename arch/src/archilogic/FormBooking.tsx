@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import { Grid, Button, Box } from '@material-ui/core'
-import { SpaceType } from '../types'
 import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { useSelector } from 'react-redux'
@@ -12,7 +11,7 @@ export const FormBooking: FC<Props> = () => {
   const {
     bookings: { selectedSpace },
   } = useSelector((store: RootState) => store)
-  console.log(selectedSpace)
+  // console.log(selectedSpace)
   return (
     <Formik
       initialValues={selectedSpace || { fullName: '', email: '' }}

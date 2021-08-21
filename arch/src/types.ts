@@ -2,7 +2,11 @@
 
 export type SpaceType = {
   id: string;
-  sceneId: string;
+  //date
+  created: string;
+  //date
+  modified: string
+  idExt: string;
   title: string;
   description: string;
   usage: string;
@@ -12,7 +16,10 @@ export type SpaceType = {
   fullName?: string | null;
   email?: string | null;
   booked: boolean;
-  node?: any
+  //date
+  startRent?: string; 
+  // date
+  endRent?: string;
 }
 
 export type BookingType = {
@@ -53,10 +60,10 @@ export type Action = {
 
 }
 export type BookingsState = {
-  spaces: SpaceType[];
-  selectedSpace: SpaceType | null;
+  spaces: SpaceArch[];
+  selectedSpace: SpaceArch | null;
   bookings: BookingType[];
-  usedSpaces: SpaceType[]
+  // usedSpaces: SpaceType[]
 
   // loading: boolean,
   // selectedDate: DateTime,
