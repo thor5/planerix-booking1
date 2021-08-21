@@ -1,56 +1,36 @@
 import { DateTime } from 'luxon'
 import axios from 'axios'
-import {
-    INIT_BOOKINGS, 
-    // SELECT_DATE, SELECT_TIME_SLOT, 
-    SELECT_SPACE, SET_SPACES, START_SAVE_BOOKING, END_SAVE_BOOKING, UNSELECT_SPACE
-} from './actions'
-import { BookingType, Space } from '../types'
+// import {
+//     INIT_BOOKINGS, 
+//     // SELECT_DATE, SELECT_TIME_SLOT, 
+//     SELECT_SPACE, SET_SPACES, START_SAVE_BOOKING, END_SAVE_BOOKING, UNSELECT_SPACE
+// } from './actions'
+import { Action, BookingsState } from '../types'
 
-export const SLOTS_COUNT = 22; // from 8 am to 7 pm
+// export const SLOTS_COUNT = 22; // from 8 am to 7 pm
 
-interface Action {
-    newBookingsList: BookingType[]
-    type: string,
-    spaces: Space[],
-    bookings: BookingType[],
-    spaceId: string,
-    booking: BookingType,
-    newTimeSlot: number,
-    newDate: DateTime,
-    space: Space,
-}
 
-export interface BookingsState {
-    spaces: Space[],
-    bookings: BookingType[],
-    loading: boolean,
-    selectedDate: DateTime,
-    selectedTimeSlot: number,
-    usedSlots: boolean[],
-    selectedSpace: Space | null,
-    usedSpaces: Space[]
-}
+
 
 const initialState: BookingsState = {
     spaces: [],
     bookings: [],
-    selectedDate: DateTime.now(),
-    selectedTimeSlot: 3,
-    loading: true,
-    usedSlots: new Array(SLOTS_COUNT).fill(false),
-    selectedSpace: null,
-    usedSpaces: []
+    // selectedDate: DateTime.now(),
+    // selectedTimeSlot: 3,
+    // loading: true,
+    // usedSlots: new Array(SLOTS_COUNT).fill(false),
+    // selectedSpace: null,
+    // usedSpaces: []
 }
 
 const bookings = (state = initialState, action: Action) => {
     switch (action.type) {
-        case SET_SPACES:
+        case 'SET_SPACES':
             return {
                 ...state,
                 spaces: action.spaces,
             }
-        case INIT_BOOKINGS:
+        case 'INIT_BOOKINGS':
             return {
                 ...state,
                 bookings: action.bookings,
@@ -74,20 +54,20 @@ const bookings = (state = initialState, action: Action) => {
         //         usedSpaces: aggregateUsedSpaces(state.bookings, action.newDate, state.selectedTimeSlot, state.spaces)
 
         //     }
-        case SELECT_SPACE:
-            if (action.space.usage !== "meet" && action.space.usage !== "meetingRoom") return state
-            return {
-                ...state,
-                selectedSpace: action.space,
-                // usedSlots: aggregateUsedSlots(state.bookings, state.selectedDate, action.space),
+        // case SELECT_SPACE:
+        //     if (action.space.usage !== "meet" && action.space.usage !== "meetingRoom") return state
+        //     return {
+        //         ...state,
+        //         selectedSpace: action.space,
+        //         // usedSlots: aggregateUsedSlots(state.bookings, state.selectedDate, action.space),
 
-            }
-        case UNSELECT_SPACE:
-            return {
-                ...state,
-                selectedSpace: undefined,
-                usedSlots: new Array(SLOTS_COUNT).fill(false)
-            }
+        //     }
+        // case UNSELECT_SPACE:
+        //     return {
+        //         ...state,
+        //         selectedSpace: undefined,
+        //         usedSlots: new Array(SLOTS_COUNT).fill(false)
+        //     }
         // case END_SAVE_BOOKING:
         //     return {
         //         ...state,
@@ -101,13 +81,7 @@ const bookings = (state = initialState, action: Action) => {
     }
 }
 
-export const setSpaces = (spaces: Space[]) => {
-    return { type: SET_SPACES, spaces }
-}
 
-export const initBookings = (bookings: BookingType[]) => {
-    return { type: INIT_BOOKINGS, bookings }
-}
 
 // extract booking data from each space
 // export const fetchBookingFromSpaces = (floorId: string, spaces: Space[]) => (dispatch: any) => {
@@ -138,13 +112,7 @@ export const initBookings = (bookings: BookingType[]) => {
 //     return { type: SELECT_TIME_SLOT, newTimeSlot }
 // }
 
-export const selectSpace = (space: Space) => {
-    return { type: SELECT_SPACE, space }
-}
 
-export const unSelectSpace = () => {
-    return { type: UNSELECT_SPACE }
-}
 
 // calculate time-slots available for a specific space in a day 
 // const aggregateUsedSlots = (bookings: BookingType[], dateSelected: DateTime, selectedSpace: Space | null) => {
@@ -184,45 +152,6 @@ export const unSelectSpace = () => {
 //     return spaces.filter(space => bookingsOfSlotIDs.includes(space.id));
 // }
 
-export const startSaveBooking = () => {
-    return { type: START_SAVE_BOOKING }
-}
 
-export const endSaveBooking = (newBookingsList: BookingType[]) => {
-    return { type: END_SAVE_BOOKING, newBookingsList }
-}
-
-export const saveBooking = (newBooking: BookingType, bookings: BookingType[]) => (dispatch: any) => {
-    dispatch(startSaveBooking());
-    let newBookingsList = bookings.filter(booking => booking.spaceId === newBooking.spaceId);
-
-    newBookingsList.push(newBooking);
-
-    axios.put(`/v2/space/${newBooking.spaceId}/custom-field/properties.customFields.bookings`, { bookings: newBookingsList }).then((response: any) => {
-        dispatch(endSaveBooking(newBookingsList));
-    });
-}
-
-export const updateBooking = (updatedBooking: BookingType, bookings: BookingType[]) => (dispatch: any) => {
-    dispatch(startSaveBooking());
-    let newBookingsList = bookings.filter(booking => booking.spaceId === updatedBooking.spaceId)
-        .filter(booking => booking.id !== updatedBooking.id);
-
-    newBookingsList.push(updatedBooking);
-
-    axios.put(`/v2/space/${updatedBooking.spaceId}/custom-field/properties.customFields.bookings`, { bookings: newBookingsList }).then((response: any) => {
-        dispatch(endSaveBooking(newBookingsList));
-    });
-}
-
-export const deleteBooking = (removeBooking: BookingType, bookings: BookingType[]) => (dispatch: any) => {
-    dispatch(startSaveBooking());
-    let newBookingsList = bookings.filter(booking => booking.spaceId === removeBooking.spaceId)
-        .filter(booking => booking.id !== removeBooking.id);
-
-    axios.put(`/v2/space/${removeBooking.spaceId}/custom-field/properties.customFields.bookings`, { bookings: newBookingsList }).then((response: any) => {
-        dispatch(endSaveBooking(newBookingsList));
-    });
-}
 
 export default bookings

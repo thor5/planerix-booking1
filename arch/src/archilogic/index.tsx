@@ -7,10 +7,10 @@ import {
   // fetchBookingFromSpaces,
   selectSpace,
   setSpaces,
-} from '../store/bookings'
+} from '../store/actions/bookingAction'
 import { Space } from '../types'
 import { RootState } from '../store'
-import { bookingsMock } from '../mock-data/bookings'
+import { spacesMock } from '../mock-data/bookings'
 
 declare var FloorPlanEngine: any
 
@@ -61,7 +61,7 @@ export const Archilogic: FC<Props> = () => {
       dispatch(setSpaces(fp.resources.spaces))
       // dispatch(fetchBookingFromSpaces(sceneId, fp.resources.spaces))
       const spaces = fp.resources.spaces
-      const spaceIds = bookingsMock.map((item) => item.spaceId)
+      const spaceIds = spacesMock.map((space) => space.id)
       spaces.forEach((space) => {
         if (spaceIds.includes(space.id)) {
           space.node.setHighlight({ fill: colorMap.red })

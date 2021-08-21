@@ -9,8 +9,9 @@ export const spaceLabelMapping = {
   services: 'Персонал обслуживания',
   staircase: 'Лестница',
   toilet: 'Туалет',
-  storage: 'склад',
-  bathroom: 'спальня',
+  storage: 'Склад',
+  bathroom: 'Спальня',
+  lobby: 'Холл'
 }
 
 export const colorMap = {

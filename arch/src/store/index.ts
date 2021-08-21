@@ -2,11 +2,12 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { combineReducers } from 'redux'
 import thunk from 'redux-thunk';
 
-import bookings, { BookingsState } from './bookings'
-import floor, { FloorState } from './floor'
+import bookings from './bookings'
+import { BookingsState } from '../types'
+// import  { FloorState } from './floor'
 
 declare var window: any
-const reducers = combineReducers({ bookings, floor })
+const reducers = combineReducers({ bookings })
 export const store = createStore(
   reducers,
   compose(
@@ -17,5 +18,5 @@ export const store = createStore(
 
 export type RootState = {
   bookings: BookingsState
-  floor: FloorState
+  // floor: FloorState
 }
