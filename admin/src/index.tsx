@@ -15,10 +15,12 @@ import posts from './posts';
 import users from './users';
 import dashboard from './dashboard';
 import tags from './tags';
+import Dashboard from './Dashboard';
 
 render(
     <React.StrictMode>
         <Admin
+            dashboard={Dashboard}
             authProvider={authProvider}
             dataProvider={dataProvider}
             i18nProvider={i18nProvider}
@@ -39,9 +41,9 @@ render(
         >
             {permissions => [
                 <Resource name="dashboard" {...dashboard} />,
-                <Resource name="posts" {...posts} />,
-                <Resource name="comments" {...comments} />,
-                permissions ? <Resource name="users" {...users} /> : null,
+                <Resource name="posts" options={{ label: 'Новости' }} {...posts} />,
+                <Resource name="comments" options={{ label: 'Заявки арендаторов' }} {...comments} />,
+                permissions ? <Resource name="users" options={{ label: 'Арендаторы' }} {...users} /> : null,
                 <Resource name="tags" {...tags} />,
             ]}
         </Admin>
