@@ -11,7 +11,8 @@ export type SpaceType = {
   description: string;
   usage: string;
   pricePerMetr?: number | null;
-  rent: 'short' | 'long';
+  // rent: 'short' | 'long';
+  rent: number;
   perHour?: number | null;
   fullName?: string | null;
   email?: string | null;

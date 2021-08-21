@@ -7,8 +7,15 @@ export const floorApi = createApi({
   endpoints: (builder) => ({
     getFloorSpaces: builder.query<SpaceType[], undefined>({
       query: () => ``
+    }),
+    createFloorSpace: builder.mutation<SpaceType, Partial<SpaceType>>({
+      query: (options) => ({
+        url: '/',
+        method: 'POST',
+        body: options
+      })
     })
   })
 })
 
-export const { useGetFloorSpacesQuery } = floorApi
+export const { useGetFloorSpacesQuery, useCreateFloorSpaceMutation } = floorApi

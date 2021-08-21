@@ -4,6 +4,7 @@ import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
+import { useCreateFloorSpaceMutation } from '../store/query/floor'
 
 type Props = {
   onClose?: () => void
@@ -14,22 +15,44 @@ export const FormBooking: FC<Props> = ({ onClose }) => {
     bookings: { selectedSpace },
   } = useSelector((store: RootState) => store)
   console.log(selectedSpace)
+  const [createSpace] = useCreateFloorSpaceMutation()
+  if (!selectedSpace) {
+    return null
+  }
   return (
     <Formik
-      initialValues={selectedSpace || { fullName: '', email: '' }}
+      initialValues={{ fullName: '', email: '', title: '' }}
       onSubmit={async (values) => {
         console.log(values)
-        onClose && onClose()
+
+        await createSpace({
+          idExt: selectedSpace.id,
+          title: values.title,
+          description: 'хорошее помещение',
+          usage: 'meet',
+          pricePerMetr: 200,
+          rent: 32,
+          perHour: null,
+          fullName: 'jon juyek',
+          email: 'ee@mm.ru',
+          booked: true,
+        }).unwrap()
+
+        //@ts-ignore
+        onClose()
       }}
     >
       {() => (
         <Form>
           <Grid container direction="column" spacing={2}>
             <Grid item>
+              <Field component={TextField} name="title" label="Название" />
+            </Grid>
+            <Grid item>
               <Field
                 component={TextField}
                 name="fullName"
-                label="Введите ваше имя"
+                label="Введите имя фамилию"
               />
             </Grid>
             <Grid item>
@@ -42,7 +65,7 @@ export const FormBooking: FC<Props> = ({ onClose }) => {
             <Grid item>
               <Box>
                 <Button variant="contained" color="primary" type="submit">
-                  Сохранить
+                  Забронировать
                 </Button>
               </Box>
             </Grid>

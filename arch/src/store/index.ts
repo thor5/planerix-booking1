@@ -12,11 +12,8 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
 
-      serializableCheck: {
-        ignoredActions: ['booking.spaces.0.node'],
-        ignoredPaths: ['booking.spaces.0.node', 'payload.node'],
-        ignoredActionPaths: ['payload.0.node', 'bookings.spaces.0.node', 'payload.0._gfx'],
-      }
+      serializableCheck: false,
+
     }).concat(floorApi.middleware),
 })
 
