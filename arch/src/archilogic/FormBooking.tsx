@@ -5,24 +5,26 @@ import { TextField } from 'formik-material-ui'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 
-type Props = {}
+type Props = {
+  onClose?: () => void
+}
 
-export const FormBooking: FC<Props> = () => {
+export const FormBooking: FC<Props> = ({ onClose }) => {
   const {
     bookings: { selectedSpace },
   } = useSelector((store: RootState) => store)
-  // console.log(selectedSpace)
+  console.log(selectedSpace)
   return (
     <Formik
       initialValues={selectedSpace || { fullName: '', email: '' }}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         console.log(values)
+        onClose && onClose()
       }}
     >
       {() => (
         <Form>
           <Grid container direction="column" spacing={2}>
-            <Grid item>Подача заявки на аренду помещения</Grid>
             <Grid item>
               <Field
                 component={TextField}
@@ -39,7 +41,7 @@ export const FormBooking: FC<Props> = () => {
             </Grid>
             <Grid item>
               <Box>
-                <Button variant="contained" color="secondary" type="submit">
+                <Button variant="contained" color="primary" type="submit">
                   Сохранить
                 </Button>
               </Box>
