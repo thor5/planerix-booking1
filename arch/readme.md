@@ -1,1 +1,2 @@
-archilogic
+`yarn install`
+`yarn start`
