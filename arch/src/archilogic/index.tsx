@@ -64,7 +64,7 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
     const container = document.getElementById('floorplan')
     refFp.current = new FloorPlanEngine(container, startupOptions)
     const fp: any = refFp.current
-    // console.log(fp)
+
     fp.loadScene(sceneId, { publishableToken }).then(() => {
       dispatch(setSpaces(fp.resources.spaces))
       // dispatch(fetchBookingFromSpaces(sceneId, fp.resources.spaces))
@@ -85,10 +85,8 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
       event.pos
     )
     if (spaces.length === 0) return
-    // console.log(eventSpaces, selectedSpace, spaces)
     dispatch(selectSpace(eventSpaces[0]))
   }
-  // console.log(usedSpaces)
 
   // Repaint Spaces
   useEffect(() => {
@@ -97,9 +95,9 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
     })
 
     spaces
-      // .filter(
-      //   (space) => space.usage === 'meet' || space.usage === 'meetingRoom'
-      // )
+      .filter(
+        (space) => space.usage === 'meet' || space.usage === 'meetingRoom'
+      )
       .forEach((space) => {
         if (usedSpaces.includes(space)) {
           fillSpaceWithColor(space, colorMap.red)
