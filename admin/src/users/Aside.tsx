@@ -20,14 +20,12 @@ const Aside = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Typography variant="h6">App Users</Typography>
+            <Typography variant="h6">Арендаторы</Typography>
             <Typography variant="body2">
-                Eiusmod adipisicing tempor duis qui. Ullamco aliqua tempor
-                incididunt aliquip aliquip qui ad minim aliqua. Aute et magna
-                quis pariatur irure sunt. Aliquip velit consequat dolore ullamco
-                laborum voluptate cupidatat. Proident minim reprehenderit id
-                dolore elit sit occaecat ad amet tempor esse occaecat enim.
-                Laborum aliqua excepteur qui ipsum in dolor et cillum est.
+                Перечень резидентов креативного кластера «Контактор»
+            </Typography><br/><br/>
+            <Typography variant="body2">
+                <a href="/#/helper">Демонстрация ассистента для резидентов</a>
             </Typography>
         </div>
     );
