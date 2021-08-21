@@ -4,7 +4,7 @@ import { Archilogic } from './archilogic'
 
 const App: FC = () => {
   return (
-    <Box height="100vh">
+    <Box height="80vh">
       <Archilogic />
     </Box>
   )

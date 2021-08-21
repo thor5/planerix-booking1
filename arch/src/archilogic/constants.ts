@@ -12,3 +12,10 @@ export const spaceLabelMapping = {
   storage: 'склад',
   bathroom: 'спальня',
 }
+
+export const colorMap = {
+  red: [241, 102, 100],
+  green: [121, 204, 205],
+  blue: [0, 100, 255],
+  lightBlue: [207, 238, 253]
+};

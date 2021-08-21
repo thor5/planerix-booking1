@@ -1,20 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import Media from 'react-media'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import { store } from './store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Media
-      query="(max-width: 500px)"
-      render={() => (
-        <div>
-          устройство не поддерживается
-        </div>
-      )}
-    />
-    <Media query="(min-width: 501px)" render={() => <App />} />
+    <Provider store={store}>
+      <Media
+        query="(max-width: 500px)"
+        render={() => <div>устройство не поддерживается</div>}
+      />
+      <Media query="(min-width: 501px)" render={() => <App />} />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )
