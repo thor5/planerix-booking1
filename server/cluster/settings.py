@@ -87,7 +87,7 @@ DATABASES = {
         'USER': os.environ.get('SQL_USER', 'claster_api'),
         'PASSWORD': os.environ.get('SQL_PASSWORD', 'claster_passwd'),
         'HOST': os.environ.get('SQL_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', '15432'),
+        'PORT': os.environ.get('SQL_PORT', '5432'),
     }
 }
 

@@ -1,0 +1,36 @@
+
+###
+
+POST http://localhost:8000/api/floor/
+Content-Type: application/json
+
+{
+  "title": "name 4"
+}
+
+###
+
+POST http://localhost:8000/api/floor/
+Content-Type: application/json
+
+[
+  {
+    "idExt": "id7",
+    "title": "name 7"
+  },
+  {
+    "idExt": "id8",
+    "title": "name 8"
+  }
+]
+
+
+###
+
+GET http://localhost:8000/api/floor/8/
+Accept: application/json
+
+###
+
+DELETE http://localhost:8000/api/floor/7/
+Accept: application/json

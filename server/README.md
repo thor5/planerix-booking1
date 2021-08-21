@@ -1,1 +1,1 @@
-server!
+docker-compose -p cluster up --build
