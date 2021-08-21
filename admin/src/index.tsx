@@ -44,7 +44,7 @@ render(
                 <Resource name="posts" options={{ label: 'Новости' }} {...posts} />,
                 <Resource name="comments" options={{ label: 'Заявки арендаторов' }} {...comments} />,
                 permissions ? <Resource name="users" options={{ label: 'Арендаторы' }} {...users} /> : null,
-                <Resource name="tags" {...tags} />,
+                <Resource name="tags" {...tags} options={{ label: 'Категории новостей' }}/>,
             ]}
         </Admin>
     </React.StrictMode>,
