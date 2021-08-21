@@ -1,22 +1,42 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import { combineReducers } from 'redux'
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit'
+// Or from '@reduxjs/toolkit/query/react'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import { floorApi } from './query/floor'
+import bookingReducer from './bookings'
 
-import { bookings } from './bookings'
-import { BookingsState } from '../types'
-// import  { FloorState } from './floor'
+export const store = configureStore({
+  reducer: {
+    [floorApi.reducerPath]: floorApi.reducer,
+    bookings: bookingReducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(floorApi.middleware),
+})
 
-declare var window: any
-const reducers = combineReducers({ bookings })
-export const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(thunk),
-    ...(window.__REDUX_DEVTOOLS_EXTENSION__ ? [window.__REDUX_DEVTOOLS_EXTENSION__()] : [])
-  )
-)
+setupListeners(store.dispatch)
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
-export type RootState = {
-  bookings: BookingsState
-  // floor: FloorState
-}
+
+// import { createStore, applyMiddleware, compose } from 'redux'
+// import { combineReducers } from 'redux'
+// import thunk from 'redux-thunk';
+
+// import { bookings } from './bookings'
+// import { BookingsState } from '../types'
+// // import  { FloorState } from './floor'
+
+// declare var window: any
+// const reducers = combineReducers({ bookings })
+// export const store = createStore(
+//   reducers,
+//   compose(
+//     applyMiddleware(thunk),
+//     ...(window.__REDUX_DEVTOOLS_EXTENSION__ ? [window.__REDUX_DEVTOOLS_EXTENSION__()] : [])
+//   )
+// )
+
+// export type RootState = {
+//   bookings: BookingsState
+//   // floor: FloorState
+// }

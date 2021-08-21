@@ -1,18 +1,14 @@
 import { FC, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Grid, Typography, Box, Button } from '@material-ui/core'
 import { spaceLabelMapping } from './constants'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 import { colorMap } from './constants'
-import {
-  fetchSpaces,
-  // fetchBookingFromSpaces,
-  selectSpace,
-  setSpaces,
-} from '../store/actions/bookingAction'
-import { Space } from '../types'
+import {  SpaceType } from '../types'
 import { RootState } from '../store'
-import { spacesMock } from '../mock-data/bookings'
 import { fillSpaceWithColor } from './utils'
+import { useGetFloorSpacesQuery } from '../store/query/floor'
+import { setSpaces, selectSpace } from '../store/bookings'
 
 declare var FloorPlanEngine: any
 
@@ -58,13 +54,13 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
   } = useSelector((store: RootState) => store)
   const dispatch = useDispatch()
 
-  useEffect(()  => {
-    dispatch(fetchSpaces());
-    console.log(usedSpaces)
-  }, [])
+  const { data: savedSpaces } = useGetFloorSpacesQuery(undefined)
+  // console.log(savedSpaces)
+  const spaceIds = savedSpaces
+    ?.filter((space) => space.booked)
+    .map((space) => space.id)
 
   useEffect(() => {
-    fetchSpaces()
     const container = document.getElementById('floorplan')
     refFp.current = new FloorPlanEngine(container, startupOptions)
     const fp: any = refFp.current
@@ -73,9 +69,9 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
       dispatch(setSpaces(fp.resources.spaces))
       // dispatch(fetchBookingFromSpaces(sceneId, fp.resources.spaces))
       const spaces = fp.resources.spaces
-      const spaceIds = spacesMock.map((space) => space.id)
+      // const spaceIds = spacesMock.map((space) => space.id)
       spaces.forEach((space) => {
-        if (spaceIds.includes(space.id)) {
+        if (spaceIds?.includes(space.id)) {
           space.node.setHighlight({ fill: colorMap.red })
         }
       })
@@ -96,7 +92,7 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
 
   // Repaint Spaces
   useEffect(() => {
-    spaces.forEach((space: Space) => {
+    spaces.forEach((space: SpaceType) => {
       fillSpaceWithColor(space, undefined)
     })
 

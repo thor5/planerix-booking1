@@ -1,9 +1,9 @@
 import axios from "axios"
-import { Action, BookingType, Space } from "../../types"
+import { Action, BookingType, SpaceType } from "../../types"
 
 const URL = `${process.env.REACT_APP_API_URL}`
 
-export const setSpaces = (spaces: Space[]): Action => {
+export const setSpaces = (spaces: SpaceType[]): Action => {
   return { type: 'SET_SPACES', spaces }
 }
 
@@ -11,11 +11,11 @@ export const initBookings = (bookings: BookingType[]): Action => {
   return { type: 'INIT_BOOKINGS', bookings }
 }
 
-export const selectSpace = (space: Space): Action => {
+export const selectSpace = (space: SpaceType): Action => {
   return { type: 'SELECT_SPACE', space }
 }
 
-const setUsedSpaces = (spaces: Space[]): Action => {
+const setUsedSpaces = (spaces: SpaceType[]): Action => {
   return { type: 'SET_USED_SPACES', spaces }
 }
 

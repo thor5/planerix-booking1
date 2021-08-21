@@ -1,6 +1,6 @@
-import { Space } from "../types";
+import { SpaceType } from "../types";
 
-export const fillSpaceWithColor = (space: Space, color?: number[]) => {
+export const fillSpaceWithColor = (space: SpaceType, color?: number[]) => {
   if (space === undefined) {
     return
   }

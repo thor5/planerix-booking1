@@ -12,6 +12,7 @@ export type SpaceType = {
   fullName?: string | null;
   email?: string | null;
   booked: boolean;
+  node?: any
 }
 
 export type BookingType = {
@@ -33,7 +34,7 @@ export type FormInitialValues = {
   duration: number
 }
 
-export type Space = {
+export type SpaceArch = {
   id: string
   node: any
   usage: string
@@ -42,8 +43,8 @@ export type Space = {
 export type Action = {
   //     newBookingsList: BookingType[]
   type: 'SET_SPACES' | 'INIT_BOOKINGS' | 'SELECT_SPACE' | 'SET_USED_SPACES';
-  spaces?: Space[];
-  space?: Space;
+  spaces?: SpaceType[];
+  space?: SpaceType;
   bookings?: BookingType[];
   //     spaceId: string,
   //     booking: BookingType,
@@ -52,10 +53,10 @@ export type Action = {
 
 }
 export type BookingsState = {
-  spaces: Space[];
-  selectedSpace: Space | null;
+  spaces: SpaceType[];
+  selectedSpace: SpaceType | null;
   bookings: BookingType[];
-  usedSpaces: Space[]
+  usedSpaces: SpaceType[]
 
   // loading: boolean,
   // selectedDate: DateTime,

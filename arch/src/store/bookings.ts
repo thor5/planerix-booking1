@@ -1,17 +1,7 @@
-// import { DateTime } from 'luxon'
-// import axios from 'axios'
-// import {
-//     INIT_BOOKINGS, 
-//     // SELECT_DATE, SELECT_TIME_SLOT, 
-//     SELECT_SPACE, SET_SPACES, START_SAVE_BOOKING, END_SAVE_BOOKING, UNSELECT_SPACE
-// } from './actions'
-import { Action, BookingsState } from '../types'
-import { spacesMock } from '../mock-data/bookings'
+import { createSlice } from '@reduxjs/toolkit'
+// Or from '@reduxjs/toolkit/query/react'
 
-// export const SLOTS_COUNT = 22; // from 8 am to 7 pm
-
-
-
+import { BookingsState } from '../types'
 
 const initialState: BookingsState = {
     spaces: [],
@@ -25,28 +15,67 @@ const initialState: BookingsState = {
     // usedSlots: new Array(SLOTS_COUNT).fill(false),
 }
 
-export const bookings = (state = initialState, action: Action) => {
-    switch (action.type) {
-        case 'SET_SPACES':
-            return {
-                ...state,
-                spaces: action.spaces,
-            }
-        case 'SELECT_SPACE':
+const bookingsSlice = createSlice({
+    name: 'bookings',
+    initialState,
+    reducers: {
+        setSpaces: (state, action) => {
+            state.spaces = action.payload
+        },
+        initBookings: (state, action) => {
+            state.bookings = action.payload
+        },
+        selectSpace: (state, action) => {
+            state.selectedSpace = action.payload
+        },
+        setUsedSpaces: (state, action) => {
+            state.usedSpaces = action.payload
+        }
+    }
+})
+
+export const { setSpaces, initBookings, selectSpace, setUsedSpaces } = bookingsSlice.actions
+
+export default bookingsSlice.reducer
+// import { DateTime } from 'luxon'
+// import axios from 'axios'
+// import {
+//     INIT_BOOKINGS, 
+//     // SELECT_DATE, SELECT_TIME_SLOT, 
+//     SELECT_SPACE, SET_SPACES, START_SAVE_BOOKING, END_SAVE_BOOKING, UNSELECT_SPACE
+// } from './actions'
+// import { Action, BookingsState } from '../types'
+// import { spacesMock } from '../mock-data/bookings'
+
+// export const SLOTS_COUNT = 22; // from 8 am to 7 pm
+
+
+
+
+
+
+// export const bookings = (state = initialState, action: Action) => {
+//     switch (action.type) {
+//         case 'SET_SPACES':
+//             return {
+//                 ...state,
+//                 spaces: action.spaces,
+//             }
+        // case 'SELECT_SPACE':
             // if (action.space?.usage !== "meet" && action.space?.usage !== "meetingRoom") return state
-            return {
-                ...state,
-                selectedSpace: action.space,
+            // return {
+            //     ...state,
+            //     selectedSpace: action.space,
                 // usedSlots: aggregateUsedSlots(state.bookings, state.selectedDate, action.space),
-            }
-        case 'INIT_BOOKINGS':
-            return {
-                ...state,
-                bookings: action.bookings,
-                usedSpaces: spacesMock.filter((space) => space.booked),
+            // }
+        // case 'INIT_BOOKINGS':
+        //     return {
+        //         ...state,
+        //         bookings: action.bookings,
+        //         usedSpaces: spacesMock.filter((space) => space.booked),
                 // usedSpaces: aggregateUsedSpaces(action.bookings, state.selectedDate, state.selectedTimeSlot, state.spaces),
                 // loading: false
-            }
+            // }
         // case SELECT_TIME_SLOT:
         //     return {
         //         ...state,
@@ -79,10 +108,10 @@ export const bookings = (state = initialState, action: Action) => {
         //         selectedSpace: null,
         //         loading: false
         //     }
-        default:
-            return state
-    }
-}
+//         default:
+//             return state
+//     }
+// }
 
 
 
