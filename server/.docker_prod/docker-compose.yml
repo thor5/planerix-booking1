@@ -1,7 +1,7 @@
 version: "3.3"
 
 services:
-  claster_nginx:
+  cluster_nginx:
     container_name: nginx
     build:
       context: nginx
@@ -13,18 +13,18 @@ services:
       - "80:80"
 #      - "443:443"
     links:
-      - claster_web
+      - cluster_web
 
-  claster_db:
+  cluster_db:
     container_name: db
     image: postgres:12.0-alpine
     restart: always
     volumes:
-      - claster_postgres_data:/var/lib/postgresql/data/
+      - cluster_postgres_data:/var/lib/postgresql/data/
     env_file:
       - $HOME/api/DOCKER_BUILD/.api.env.prod.db
 
-  claster_web:
+  cluster_web:
     container_name: web
     build:
       context: ..
@@ -37,9 +37,9 @@ services:
       - 8000
     env_file:
       - $HOME/api/DOCKER_BUILD/.api.env.prod
-    command: gunicorn claster_api.wsgi:application --bind 0.0.0.0:8000 --workers=3 --threads=2 --worker-class=gthread
+    command: gunicorn cluster_api.wsgi:application --bind 0.0.0.0:8000 --workers=3 --threads=2 --worker-class=gthread
     depends_on:
-      - claster_db
+      - cluster_db
 
 volumes:
-  claster_postgres_data:
+  cluster_postgres_data:
