@@ -2,7 +2,8 @@ import * as React from "react";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Title } from 'react-admin';
-export default () => (
+
+const Dashboard = () => (
     <Card>
         <Title title="Основные показатели БЦ" />
         <CardContent>Статистика по кластеру на текущий момент</CardContent>
@@ -13,3 +14,5 @@ export default () => (
         </iframe>
     </Card>
 );
+
+export default { Dashboard }

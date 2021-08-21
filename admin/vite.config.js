@@ -8,6 +8,7 @@ import path from 'path';
 export default {
     plugins: [reactRefresh()],
     alias: [
+        /*
         {
             find: /^react-admin$/,
             replacement: path.resolve(
@@ -18,7 +19,7 @@ export default {
         {
             find: /^ra-(.*)$/,
             replacement: path.resolve(__dirname, '../../packages/ra-$1/src'),
-        },
+        },*/
         {
             find: /^@material-ui\/icons\/(.*)/,
             replacement: '@material-ui/icons/esm/$1',
