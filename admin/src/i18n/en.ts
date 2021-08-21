@@ -11,7 +11,7 @@ export const messages = {
     ...englishMessages,
     resources: {
         posts: {
-            name: 'Post |||| Posts',
+            name: 'News |||| News',
             fields: {
                 average_note: 'Average note',
                 body: 'Body',
@@ -43,12 +43,15 @@ export const messages = {
             },
         },
         users: {
-            name: 'User |||| Users',
+            name: 'Renter |||| Renters',
             fields: {
                 name: 'Name',
                 role: 'Role',
             },
         },
+        tags: {
+            name: 'News cat |||| News categories',
+        }
     },
     post: {
         list: {
