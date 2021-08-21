@@ -1,4 +1,4 @@
-import { BookingType, SpaceType } from "../types";
+import { SpaceType } from "../types";
 
 export const spacesMock: SpaceType[] = [
   {

@@ -1,11 +1,12 @@
-import { DateTime } from 'luxon'
-import axios from 'axios'
+// import { DateTime } from 'luxon'
+// import axios from 'axios'
 // import {
 //     INIT_BOOKINGS, 
 //     // SELECT_DATE, SELECT_TIME_SLOT, 
 //     SELECT_SPACE, SET_SPACES, START_SAVE_BOOKING, END_SAVE_BOOKING, UNSELECT_SPACE
 // } from './actions'
 import { Action, BookingsState } from '../types'
+import { spacesMock } from '../mock-data/bookings'
 
 // export const SLOTS_COUNT = 22; // from 8 am to 7 pm
 
@@ -15,27 +16,36 @@ import { Action, BookingsState } from '../types'
 const initialState: BookingsState = {
     spaces: [],
     bookings: [],
+    selectedSpace: null,
+    usedSpaces: []
+
     // selectedDate: DateTime.now(),
     // selectedTimeSlot: 3,
     // loading: true,
     // usedSlots: new Array(SLOTS_COUNT).fill(false),
-    // selectedSpace: null,
-    // usedSpaces: []
 }
 
-const bookings = (state = initialState, action: Action) => {
+export const bookings = (state = initialState, action: Action) => {
     switch (action.type) {
         case 'SET_SPACES':
             return {
                 ...state,
                 spaces: action.spaces,
             }
+        case 'SELECT_SPACE':
+            // if (action.space?.usage !== "meet" && action.space?.usage !== "meetingRoom") return state
+            return {
+                ...state,
+                selectedSpace: action.space,
+                // usedSlots: aggregateUsedSlots(state.bookings, state.selectedDate, action.space),
+            }
         case 'INIT_BOOKINGS':
             return {
                 ...state,
                 bookings: action.bookings,
+                usedSpaces: spacesMock.filter((space) => space.booked),
                 // usedSpaces: aggregateUsedSpaces(action.bookings, state.selectedDate, state.selectedTimeSlot, state.spaces),
-                loading: false
+                // loading: false
             }
         // case SELECT_TIME_SLOT:
         //     return {
@@ -54,14 +64,7 @@ const bookings = (state = initialState, action: Action) => {
         //         usedSpaces: aggregateUsedSpaces(state.bookings, action.newDate, state.selectedTimeSlot, state.spaces)
 
         //     }
-        // case SELECT_SPACE:
-        //     if (action.space.usage !== "meet" && action.space.usage !== "meetingRoom") return state
-        //     return {
-        //         ...state,
-        //         selectedSpace: action.space,
-        //         // usedSlots: aggregateUsedSlots(state.bookings, state.selectedDate, action.space),
 
-        //     }
         // case UNSELECT_SPACE:
         //     return {
         //         ...state,
@@ -119,13 +122,13 @@ const bookings = (state = initialState, action: Action) => {
 //     if (dateSelected == null) {
 //         return new Array(SLOTS_COUNT).fill(false);
 //     }
-    // const bookingsOfDay = bookings.filter((booking: BookingType) => booking.date.isSame(dateSelected, "day") && selectedSpace && booking.spaceId === selectedSpace.id);
-    // return new Array(SLOTS_COUNT).fill(false).map((slot, index) => {
-    //     const slotTime = dateSelected.startOf('day').add(8, 'hours').add(index * 30, 'minutes').add(5, "minutes");
-        // const bookingFound = bookingsOfDay.find((eachBooking: BookingType) => {
-        //     const eachBookingStartTime = eachBooking.date;
-        //     const durationInMinutes = eachBooking.duration * 30;
-        //     const eachBookingEndTime = eachBookingStartTime.clone().add(durationInMinutes.toString(), "minutes");
+// const bookingsOfDay = bookings.filter((booking: BookingType) => booking.date.isSame(dateSelected, "day") && selectedSpace && booking.spaceId === selectedSpace.id);
+// return new Array(SLOTS_COUNT).fill(false).map((slot, index) => {
+//     const slotTime = dateSelected.startOf('day').add(8, 'hours').add(index * 30, 'minutes').add(5, "minutes");
+// const bookingFound = bookingsOfDay.find((eachBooking: BookingType) => {
+//     const eachBookingStartTime = eachBooking.date;
+//     const durationInMinutes = eachBooking.duration * 30;
+//     const eachBookingEndTime = eachBookingStartTime.clone().add(durationInMinutes.toString(), "minutes");
 
 //             return eachBookingStartTime.isBefore(slotTime, "minutes") && eachBookingEndTime.isAfter(slotTime, "minutes")
 //         });
@@ -154,4 +157,4 @@ const bookings = (state = initialState, action: Action) => {
 
 
 
-export default bookings
+// export default bookings

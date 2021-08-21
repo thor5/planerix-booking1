@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+// import { DateTime } from 'luxon'
 
 export type SpaceType = {
   id: string;
@@ -41,22 +41,25 @@ export type Space = {
 
 export type Action = {
   //     newBookingsList: BookingType[]
-      type: 'SET_SPACES' | 'INIT_BOOKINGS' | 'SELECT_SPACE';
-      spaces?: Space[];
-      bookings?: BookingType[];
+  type: 'SET_SPACES' | 'INIT_BOOKINGS' | 'SELECT_SPACE' | 'SET_USED_SPACES';
+  spaces?: Space[];
+  space?: Space;
+  bookings?: BookingType[];
   //     spaceId: string,
   //     booking: BookingType,
   //     newTimeSlot: number,
   //     newDate: DateTime,
-      // space: Space,
-  }
+
+}
 export type BookingsState = {
   spaces: Space[];
+  selectedSpace: Space | null;
   bookings: BookingType[];
+  usedSpaces: Space[]
+
   // loading: boolean,
   // selectedDate: DateTime,
   // selectedTimeSlot: number,
   // usedSlots: boolean[],
-  // selectedSpace: Space | null,
-  // usedSpaces: Space[]
+
 }

@@ -1,9 +1,10 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import { Grid, Typography, Box, Button } from '@material-ui/core'
 import { spaceLabelMapping } from './constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { colorMap } from './constants'
 import {
+  fetchSpaces,
   // fetchBookingFromSpaces,
   selectSpace,
   setSpaces,
@@ -11,6 +12,7 @@ import {
 import { Space } from '../types'
 import { RootState } from '../store'
 import { spacesMock } from '../mock-data/bookings'
+import { fillSpaceWithColor } from './utils'
 
 declare var FloorPlanEngine: any
 
@@ -42,21 +44,31 @@ const startupOptions = {
   },
 }
 
-const sceneId = `${process.env.REACT_APP_SCENE_ID}`
+const mySceneId = `${process.env.REACT_APP_SCENE_ID}`
 const publishableToken = `${process.env.REACT_APP_PUBLISH}`
 
 type Props = {
   sceneId?: string
 }
 
-export const Archilogic: FC<Props> = () => {
-  let fp
-  const store = useSelector((store: RootState) => store)
+export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
+  const refFp = useRef<any>(null)
+  const {
+    bookings: { selectedSpace, spaces, usedSpaces },
+  } = useSelector((store: RootState) => store)
   const dispatch = useDispatch()
-  // console.log(store)
+
+  useEffect(()  => {
+    dispatch(fetchSpaces());
+    console.log(usedSpaces)
+  }, [])
+
   useEffect(() => {
+    fetchSpaces()
     const container = document.getElementById('floorplan')
-    fp = new FloorPlanEngine(container, startupOptions)
+    refFp.current = new FloorPlanEngine(container, startupOptions)
+    const fp: any = refFp.current
+    // console.log(fp)
     fp.loadScene(sceneId, { publishableToken }).then(() => {
       dispatch(setSpaces(fp.resources.spaces))
       // dispatch(fetchBookingFromSpaces(sceneId, fp.resources.spaces))
@@ -67,19 +79,43 @@ export const Archilogic: FC<Props> = () => {
           space.node.setHighlight({ fill: colorMap.red })
         }
       })
-      console.log(fp.resources.spaces)
       fp.on('click', (event: any) => onRoomClick(event, fp))
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sceneId])
 
   const onRoomClick = (event: any, floorPlan: any) => {
-    const { spaces } = floorPlan.getResourcesFromPosition(event.pos)
-    if (spaces.length === 0) return
-    const foundRoom = fp.resources.spaces.find(
-      ({ node }) => node.id === spaces[0].id
+    const { spaces: eventSpaces } = floorPlan.getResourcesFromPosition(
+      event.pos
     )
-    dispatch(selectSpace(spaces[0]))
+    if (spaces.length === 0) return
+    // console.log(eventSpaces, selectedSpace, spaces)
+    dispatch(selectSpace(eventSpaces[0]))
   }
+  // console.log(usedSpaces)
+
+  // Repaint Spaces
+  useEffect(() => {
+    spaces.forEach((space: Space) => {
+      fillSpaceWithColor(space, undefined)
+    })
+
+    spaces
+      // .filter(
+      //   (space) => space.usage === 'meet' || space.usage === 'meetingRoom'
+      // )
+      .forEach((space) => {
+        if (usedSpaces.includes(space)) {
+          fillSpaceWithColor(space, colorMap.red)
+        } else {
+          fillSpaceWithColor(space, colorMap.green)
+        }
+        if (selectedSpace) {
+          fillSpaceWithColor(selectedSpace, colorMap.lightBlue)
+        }
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSpace])
 
   return (
     <Grid container justifyContent="center">
@@ -90,7 +126,7 @@ export const Archilogic: FC<Props> = () => {
       <Grid item>
         <Button
           onClick={() => {
-            fp.exportImage({
+            refFp.current?.exportImage({
               download: true,
               format: 'jpg',
             })

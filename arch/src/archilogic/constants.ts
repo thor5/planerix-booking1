@@ -17,6 +17,6 @@ export const spaceLabelMapping = {
 export const colorMap = {
   red: [241, 102, 100],
   green: [121, 204, 205],
-  blue: [0, 100, 255],
+  blue: [0, 100, 255, 0.5],
   lightBlue: [207, 238, 253]
 };

@@ -1,6 +1,7 @@
+import axios from "axios"
 import { Action, BookingType, Space } from "../../types"
 
-
+const URL = `${process.env.REACT_APP_API_URL}`
 
 export const setSpaces = (spaces: Space[]): Action => {
   return { type: 'SET_SPACES', spaces }
@@ -10,10 +11,19 @@ export const initBookings = (bookings: BookingType[]): Action => {
   return { type: 'INIT_BOOKINGS', bookings }
 }
 
-export const selectSpace = (space: Space) => {
+export const selectSpace = (space: Space): Action => {
   return { type: 'SELECT_SPACE', space }
 }
 
+const setUsedSpaces = (spaces: Space[]): Action => {
+  return { type: 'SET_USED_SPACES', spaces }
+}
+
+export const fetchSpaces = () => dispatch => {
+  axios(URL).then((resp) => {
+    dispatch(setUsedSpaces(resp.data))
+  })
+}
 // export const unSelectSpace = () => {
 //   return { type: UNSELECT_SPACE }
 // }
