@@ -1,0 +1,36 @@
+
+###
+
+POST http://localhost:8000/api/floor/
+Content-Type: application/json
+
+{
+  "title": "name 4"
+}
+
+###
+
+POST http://52.41.138.16/api/floor/
+Content-Type: application/json
+
+[
+  {
+    "idExt": "id1",
+    "title": "name 1"
+  },
+  {
+    "idExt": "id2",
+    "title": "name 2"
+  }
+]
+
+
+###
+
+GET http://52.41.138.16/api/floor/
+Accept: application/json
+
+###
+
+DELETE http://52.41.138.16/api/floor/2/
+Accept: application/json
