@@ -1,5 +1,3 @@
 import DashboardComponent from './Dashboard';
 
-export default {
-    dashboard: DashboardComponent,
-};
+export default DashboardComponent;
