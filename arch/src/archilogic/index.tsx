@@ -4,11 +4,13 @@ import { Grid, Typography, Box, Button } from '@material-ui/core'
 import { spaceLabelMapping } from './constants'
 // import { useDispatch, useSelector } from 'react-redux'
 import { colorMap } from './constants'
-import {  SpaceType } from '../types'
+import { SpaceType } from '../types'
 import { RootState } from '../store'
 import { fillSpaceWithColor } from './utils'
 import { useGetFloorSpacesQuery } from '../store/query/floor'
 import { setSpaces, selectSpace } from '../store/bookings'
+import DialogForInfo from '../components/DialogForInfo'
+import { FormBooking } from './FormBooking'
 
 declare var FloorPlanEngine: any
 
@@ -116,7 +118,9 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
       <Grid item>
         <Typography variant="subtitle1">Просмотр помещений</Typography>
       </Grid>
-      <Box width="100%" height="80vh" id="floorplan"></Box>
+      <DialogForInfo content={<FormBooking  />}>
+        <Box width="100%" height="80vh" id="floorplan"></Box>
+      </DialogForInfo>
       <Grid item>
         <Button
           onClick={() => {
