@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f455429-36f1-433f-9372-6062065a0358" name="Default Changelist" comment="">
+    <list default="true" id="2f455429-36f1-433f-9372-6062065a0358" name="Default Changelist" comment="feature: Локализация админки на русский">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/ru.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/ru.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18nProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18nProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +30,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/dashboard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assistent" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Projects\planerix-booking\admin\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\planerix-booking\admin\src\assistent" />
       <recent name="C:\Projects\planerix-booking\admin\src\dashboard" />
+      <recent name="C:\Projects\planerix-booking\admin\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Projects\planerix-booking\admin\src" />
     </key>
   </component>
@@ -64,6 +65,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="serve" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -77,8 +88,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.serve" />
       </list>
     </recent_temporary>
   </component>
@@ -116,7 +128,63 @@
       <option name="project" value="LOCAL" />
       <updated>1629546309322</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feature: Локализация админки на русский">
+      <created>1629548573994</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1629548573994</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feature: Обновление витрины">
+      <created>1629557012292</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1629557012292</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix config: исправление сборки и запуска в vite">
+      <created>1629559208757</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1629559208757</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feature: исправление дашборда">
+      <created>1629560748831</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1629560748831</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix">
+      <created>1629561073396</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1629561073396</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feature: Русская локаль по умолчанию">
+      <created>1629574118224</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1629574118224</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feature: обновление некоторых текстов на русском">
+      <created>1629574558321</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1629574558321</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feature: В разделе с Арендаторами появилась ссылка на страничку ассистента">
+      <created>1629588572732</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1629588572732</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +194,14 @@
     <MESSAGE value="seed admin boilerplate commit" />
     <MESSAGE value="updated poilerplate" />
     <MESSAGE value="feature: Основные показаели БЦ на дашборде" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature: Основные показаели БЦ на дашборде" />
+    <MESSAGE value="feature: Локализация админки на русский" />
+    <MESSAGE value="feature: Обновление витрины" />
+    <MESSAGE value="fix config: исправление сборки и запуска в vite" />
+    <MESSAGE value="feature: исправление дашборда" />
+    <MESSAGE value="fix" />
+    <MESSAGE value="feature: Русская локаль по умолчанию" />
+    <MESSAGE value="feature: обновление некоторых текстов на русском" />
+    <MESSAGE value="feature: В разделе с Арендаторами появилась ссылка на страничку ассистента" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature: В разделе с Арендаторами появилась ссылка на страничку ассистента" />
   </component>
 </project>
