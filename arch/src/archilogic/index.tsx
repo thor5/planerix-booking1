@@ -1,14 +1,12 @@
 import { FC, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Grid, Typography, Box, Button } from '@material-ui/core'
 import { spaceLabelMapping } from './constants'
-// import { useDispatch, useSelector } from 'react-redux'
 import { colorMap } from './constants'
-import {  SpaceType } from '../types'
-import { RootState } from '../store'
-import { fillSpaceWithColor } from './utils'
 import { useGetFloorSpacesQuery } from '../store/query/floor'
 import { setSpaces, selectSpace } from '../store/bookings'
+import DialogForInfo from '../components/DialogForInfo'
+import { FormBooking } from './FormBooking'
 
 declare var FloorPlanEngine: any
 
@@ -49,14 +47,10 @@ type Props = {
 
 export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
   const refFp = useRef<any>(null)
-  const {
-    bookings: { selectedSpace, spaces, usedSpaces },
-  } = useSelector((store: RootState) => store)
   const dispatch = useDispatch()
 
   const { data: savedSpaces } = useGetFloorSpacesQuery(undefined)
-  // console.log(savedSpaces)
-  const spaceIds = savedSpaces
+  const savedSpacesIds = savedSpaces
     ?.filter((space) => space.booked)
     .map((space) => space.id)
 
@@ -67,56 +61,77 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
 
     fp.loadScene(sceneId, { publishableToken }).then(() => {
       dispatch(setSpaces(fp.resources.spaces))
-      // dispatch(fetchBookingFromSpaces(sceneId, fp.resources.spaces))
-      const spaces = fp.resources.spaces
-      // const spaceIds = spacesMock.map((space) => space.id)
-      spaces.forEach((space) => {
-        if (spaceIds?.includes(space.id)) {
+
+      fp.resources.spaces.forEach((space) => {
+        if (savedSpacesIds?.includes(space.id)) {
           space.node.setHighlight({ fill: colorMap.red })
         }
       })
       fp.on('click', (event: any) => onRoomClick(event, fp))
+      fp.on('mousemove', (event) => highlightResources(event, fp))
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sceneId])
 
   const onRoomClick = (event: any, floorPlan: any) => {
-    const { spaces: eventSpaces } = floorPlan.getResourcesFromPosition(
-      event.pos
-    )
-    if (spaces.length === 0) return
-    dispatch(selectSpace(eventSpaces[0]))
+    const resource = floorPlan.getResourcesFromPosition(event.pos)
+    if (resource?.spaces?.length === 0) return
+    dispatch(selectSpace(resource.spaces[0]))
   }
 
-  // Repaint Spaces
-  useEffect(() => {
-    spaces.forEach((space: SpaceType) => {
-      fillSpaceWithColor(space, undefined)
-    })
+  const highlightResources = (evt, fp) => {
+    const pos = evt.pos
+    const infoPos = [pos[0], pos[1] - 0.5]
+    const { spaces, assets } = fp.getResourcesFromPosition(pos)
 
-    spaces
-      .filter(
-        (space) => space.usage === 'meet' || space.usage === 'meetingRoom'
-      )
-      .forEach((space) => {
-        if (usedSpaces.includes(space)) {
-          fillSpaceWithColor(space, colorMap.red)
-        } else {
-          fillSpaceWithColor(space, colorMap.green)
-        }
-        if (selectedSpace) {
-          fillSpaceWithColor(selectedSpace, colorMap.lightBlue)
-        }
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSpace])
+    highlight(spaces, 'space', [150, 200, 250])
+    highlight(assets, 'asset', [250, 150, 50])
+    setInfoWindow(infoPos)
+  }
+
+  let active: Record<string, any> = {}
+  const highlight = (items: any[], type: string, color: string | number[]) => {
+    if (!items.length) {
+      if (active[type]) active[type].node.setHighlight()
+      delete active[type]
+      return
+    }
+    let item = items[0]
+    if (active[type]?.id === item.id) return
+    else if (active[type]) active[type].node.setHighlight()
+    item.node.setHighlight({ fill: color })
+    active[type] = item
+  }
+
+  function setInfoWindow(infoPos) {
+    if (active.asset || active.space) {
+      const assetCount = active.space.assets.length
+      const html = `<b>${active.space.usage}</b><br>${assetCount} assets<br>${
+        active.asset?.name || ''
+      }`
+      if (active.infoWindow) active.infoWindow.set({ pos: infoPos, html })
+      else
+        active.infoWindow = refFp.current.addInfoWindow({
+          pos: infoPos,
+          html,
+          height: 100,
+          width: 150,
+          closeButton: false,
+        })
+    } else if (active.infoWindow) {
+      active.infoWindow.remove()
+      delete active.infoWindow
+    }
+  }
 
   return (
     <Grid container justifyContent="center">
       <Grid item>
         <Typography variant="subtitle1">Просмотр помещений</Typography>
       </Grid>
-      <Box width="100%" height="80vh" id="floorplan"></Box>
+      <DialogForInfo content={<FormBooking />}>
+        <Box width="100%" height="80vh" id="floorplan"></Box>
+      </DialogForInfo>
       <Grid item>
         <Button
           onClick={() => {
@@ -132,38 +147,3 @@ export const Archilogic: FC<Props> = ({ sceneId = mySceneId }) => {
     </Grid>
   )
 }
-
-// Repaint Spaces
-//   useEffect(() => {
-//     bookings.spaces.forEach((space: Space) => {
-//       fillSpaceWithColor(space, undefined)
-//     })
-
-//     bookings.spaces
-//       .filter(
-//         (space) => space.usage === 'meet' || space.usage === 'meetingRoom'
-//       )
-//       .forEach((space) => {
-//         if (bookings.usedSpaces.includes(space)) {
-//           fillSpaceWithColor(space, colorMap.red)
-//         } else {
-//           fillSpaceWithColor(space, colorMap.green)
-//         }
-//         if (bookings.selectedSpace) {
-//           fillSpaceWithColor(bookings.selectedSpace, colorMap.lightBlue)
-//         }
-//       })
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [bookings.usedSpaces, bookings.selectedSpace])
-
-//   const fillSpaceWithColor = (space: Space, color?: number[]) => {
-//     if (space === undefined) {
-//         return
-//     }
-//     if (!space.node) {
-//         return
-//     }
-//     space.node.setHighlight({
-//         fill: color
-//     });
-// }

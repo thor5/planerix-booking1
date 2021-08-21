@@ -1,3 +1,5 @@
+import { colors } from '@material-ui/core'
+
 export const spaceLabelMapping = {
   corridor: 'Корридор',
   executiveOffice: 'Рабочий офис',
@@ -15,8 +17,8 @@ export const spaceLabelMapping = {
 }
 
 export const colorMap = {
-  red: [241, 102, 100],
-  green: [121, 204, 205],
-  blue: [0, 100, 255, 0.5],
-  lightBlue: [207, 238, 253]
+  red: colors.red[500],
+  green: colors.green[500],
+  blue: colors.blue[500],
+  lightBlue: colors.lightBlue[500]
 };
