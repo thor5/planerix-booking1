@@ -4,7 +4,7 @@ import { Title } from 'react-admin';
 
 export default () => (
     <Card>
-        <Title title="Основные показатели БЦ" />
+        <Title title="Основные показатели Креативного кластера" />
         <iframe
             src="https://app.powerbi.com/view?r=eyJrIjoiNjE3ODcwMjctODQ5MS00MjRhLWFlOWQtYjI1ZDkyNDdhMTliIiwidCI6IjJlOGEyY2FkLWM2ODgtNDkzMS1hZWI4LTk3MGJiNWYyMDgwMCIsImMiOjl9&pageName=ReportSection28b0a1fd8cdc3112c8e8"
             width="100%" height="760" align="left">

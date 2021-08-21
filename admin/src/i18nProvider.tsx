@@ -1,15 +1,16 @@
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import englishMessages from './i18n/en';
+import russianMessages from './i18n/ru';
 
 const messages = {
-    ru: () => import('./i18n/ru').then(messages => messages.default),
+    en: () => import('./i18n/en').then(messages => messages.default),
 };
 
 export default polyglotI18nProvider(locale => {
-    if (locale === 'ru') {
+    if (locale === 'en') {
         return messages[locale]();
     }
 
     // Always fallback on english
-    return englishMessages;
-}, 'en');
+    return russianMessages;
+}, 'ru');
