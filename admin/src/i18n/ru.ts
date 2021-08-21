@@ -77,8 +77,8 @@ export default {
             search: 'Поиск',
         },
         form: {
-            summary: 'Резюме',
-            security: 'Рекомендации',
+            summary: 'Контактные данные',
+            security: 'Докумены арендаторов',
         },
         edit: {
             title: 'Пользователь "%{title}"',

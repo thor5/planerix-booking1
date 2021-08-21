@@ -13,14 +13,15 @@ import i18nProvider from './i18nProvider';
 import Layout from './Layout';
 import posts from './posts';
 import users from './users';
-import dashboard from './dashboard';
+import PowerBi from './PowerBI';
 import tags from './tags';
 import Dashboard from './Dashboard';
+import Helper from './helper'
 
 render(
     <React.StrictMode>
         <Admin
-            dashboard={Dashboard}
+            dashboard={PowerBi}
             authProvider={authProvider}
             dataProvider={dataProvider}
             i18nProvider={i18nProvider}
@@ -32,15 +33,17 @@ render(
                     path="/custom"
                     component={props => <CustomRouteNoLayout {...props} />}
                 />,
-                <Route
-                    exact
-                    path="/custom2"
-                    component={props => <CustomRouteLayout {...props} />}
+                <Route exact
+                       path="/custom2"
+                       component={props => <CustomRouteLayout {...props} />}
                 />,
+                <Route exact
+                       path="/helper"
+                       component={props => <Helper {...props}/>} />,
             ]}
         >
             {permissions => [
-                <Resource name="dashboard" {...dashboard} />,
+                <Resource name="dashboard" {...Dashboard} />,
                 <Resource name="posts" options={{ label: 'Новости' }} {...posts} />,
                 <Resource name="comments" options={{ label: 'Заявки арендаторов' }} {...comments} />,
                 permissions ? <Resource name="users" options={{ label: 'Арендаторы' }} {...users} /> : null,
