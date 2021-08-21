@@ -13,6 +13,7 @@ import i18nProvider from './i18nProvider';
 import Layout from './Layout';
 import posts from './posts';
 import users from './users';
+import dashboard from './dashboard';
 import tags from './tags';
 
 render(
@@ -21,7 +22,7 @@ render(
             authProvider={authProvider}
             dataProvider={dataProvider}
             i18nProvider={i18nProvider}
-            title="Example Admin"
+            title="Личный кабинет"
             layout={Layout}
             customRoutes={[
                 <RouteWithoutLayout
@@ -37,6 +38,7 @@ render(
             ]}
         >
             {permissions => [
+                <Resource name="dashboard" {...dashboard} />,
                 <Resource name="posts" {...posts} />,
                 <Resource name="comments" {...comments} />,
                 permissions ? <Resource name="users" {...users} /> : null,

@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     menuItem: {
         color: theme.palette.text.secondary,
     },
-    icon: { minWidth: theme.spacing(5) },
+   icon: { minWidth: theme.spacing(5) },
 }));
 
 const SwitchLanguage = forwardRef((props, ref) => {
@@ -21,14 +21,14 @@ const SwitchLanguage = forwardRef((props, ref) => {
             ref={ref}
             className={classes.menuItem}
             onClick={() => {
-                setLocale(locale === 'en' ? 'fr' : 'en');
+                setLocale(locale === 'en' ? 'ru' : 'en');
                 props.onClick();
             }}
         >
             <ListItemIcon className={classes.icon}>
                 <Language />
             </ListItemIcon>
-            Switch Language
+            Сменить язык
         </MenuItem>
     );
 });

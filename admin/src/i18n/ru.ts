@@ -1,4 +1,4 @@
-import frenchMessages from 'ra-language-french';
+const russianMessages = {};
 
 export default {
     simple: {
@@ -8,7 +8,7 @@ export default {
         },
         'create-post': 'Nouveau post',
     },
-    ...frenchMessages,
+    ...russianMessages,
     resources: {
         posts: {
             name: 'Article |||| Articles',
