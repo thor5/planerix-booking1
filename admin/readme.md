@@ -1,18 +1,22 @@
-# React-admin Simple Example
+# Личный кабинет Администратора креативного кластера
 
-This is the application we use for our end to end tests, and for reproducing bugs via CodeSandbox.
+Проект представляет из себя личный кабинет Администратора креативного кластера
 
-## How to run
+## Как запустить проект
 
-From the react-admin repository:
+В репозитории нужно запустить следующие комманды:
 
 ```sh
-# install the dependencies for the monorepo
-make install
-# run the app in extended watch mode (reloads when a change is detected in the app code and in the packages code)
-make run-simple
+# Установить зависимости нужно командой
+yarn install
+# Запустить приложение в режиме отслеживания изменений можно командой
+yarn run-simple
 ```
 
-And then browse to [http://localhost:8080/](http://localhost:8080/).
+Остальные необходимые команды описаны в package.json
 
-The credentials are **login/password**
+Затем нужно в браузере перейти по адресу [http://localhost:8080/](http://localhost:8080/).
+
+Учетная запись по умолчанию это **login/password**
+
+Развернутое в AWS приложение находится тут https://develop.d325rc6x2hcele.amplifyapp.com/#/login
