@@ -15,7 +15,6 @@ import posts from './posts';
 import users from './users';
 import PowerBi from './PowerBI';
 import tags from './tags';
-import Dashboard from './Dashboard';
 import Helper from './helper'
 
 render(
@@ -43,7 +42,6 @@ render(
             ]}
         >
             {permissions => [
-                <Resource name="dashboard" {...Dashboard} />,
                 <Resource name="posts" options={{ label: 'Новости' }} {...posts} />,
                 <Resource name="comments" options={{ label: 'Заявки арендаторов' }} {...comments} />,
                 permissions ? <Resource name="users" options={{ label: 'Арендаторы' }} {...users} /> : null,
