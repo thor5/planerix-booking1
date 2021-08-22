@@ -2,7 +2,7 @@ import * as React from "react";
 import Card from '@material-ui/core/Card';
 import { Title } from 'react-admin';
 
-export default () => (
+const DashboardComponent = () => (
     <Card>
         <Title title="Основные показатели Креативного кластера" />
         <iframe
@@ -12,3 +12,5 @@ export default () => (
         </iframe>
     </Card>
 );
+
+export default DashboardComponent;
